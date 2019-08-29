@@ -1,12 +1,16 @@
-colorscheme PaperColor         " Set the default colorscheme.
+execute pathogen#infect()
+set t_Co=256
+set tags=tags
+"colorscheme default            " Set the default colorscheme.
+colorscheme iceberg
 syntax enable                  " Always turn on syntax highlighting.
-set background=light           " Use the dark/light version of the theme.
+set background=dark            " Use the dark/light version of the theme.
 filetype plugin indent on      " Auto indenting
 set laststatus=2               " Always show the status line.
 set expandtab                  " Change tabs into spaces.
-set tabstop=2                  " Make tabs two spaces wide.
-set softtabstop=2              " Tab size when inserting/pasting.
-set shiftwidth=2               " Number of spaces to use for autoindenting.
+set tabstop=4                  " Make tabs n spaces wide.
+set softtabstop=4              " Tab size when inserting/pasting.
+set shiftwidth=4               " Number of spaces to use for autoindenting.
 set shiftround                 " Use multiple of shiftwidth when indenting with < and >.
 set smarttab                   " Insert tabs on the start of a line according to shiftwidth.
 set autoindent                 " Always have autoindenting on.
@@ -20,6 +24,15 @@ set scrolloff=10               " Always show n lines of context by padding top/b
 set hidden                     " Hide buffers instead of closing them.
 set clipboard=unnamed          " Use system clipboard.
 set backspace=indent,eol,start " Make backspace work like most editors.
+set completeopt-=preview       " Prevent scratch window on autocomplete
+
+" Make cursorline show as a highlight instead of an underline.
+highlight CursorLine   cterm=NONE ctermbg=8 ctermfg=NONE
+" If you want to change the cursor color, use this:
+" hightlight CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE
+
+" Make colorcolumn same as cursorline
+highlight ColorColumn ctermbg=8
 
 " Longer command and undo history.
 set history=100
@@ -57,18 +70,19 @@ nmap <leader>o :set paste!<cr>
 " Remove trailing white space.
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<cr>
 
-" JSDoc highlighting
-let g:javascript_plugin_jsdoc = 1
+" Rainbow (colored brackets/parentheses)
+let g:rainbow_active = 1
 
-" GitGutter
-let g:gitgutter_terminal_reports_focus=0
-
-" Airline/Powerline fonts
+""" Airline
+" fonts
 let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
+
+" theme
+let g:airline_theme = 'badcat'
 
 " unicode symbols
 let g:airline_left_sep = '»'
@@ -92,9 +106,4 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
-
-" fzf (installed with git at ~/.fzf)
-set rtp+=~/.fzf
-
-" Pathogen
-execute pathogen#infect()
+"""
